@@ -35,7 +35,7 @@ rolled_weights = [Theta1(:); Theta2(:)];
 init_weights = [init_Theta1(:); init_Theta2(:)];
 options = optimset('MaxIter', 100);
 
-[a b] = costFunction(X_unrolled, init_weights, y, lambda, hidden_layer_size, input_layer_size, output_layer_size);
-pause
+debugBackprop(lambda);
+
 costFunc = @(t) costFunction(X_unrolled, t, y, lambda, hidden_layer_size, input_layer_size, output_layer_size);
 [rolled_weights cost] = fmincg(costFunc, init_weights, options);

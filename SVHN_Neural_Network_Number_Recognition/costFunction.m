@@ -18,21 +18,22 @@ function [J gradient] = costFunction(X_unrolled, rolled_weights, y, lambda, hidd
   
   % Calculating cost
   
-  J = -(1/m)*sum(log(h)*y + log(1-h)*(1-y));
-  J += (lambda/(2*m))*sum(sum(Theta1.^2)); %Regularization
-  J += (lambda/(2*m))*sum(sum(Theta2.^2)); %Regularization
+  J = -(1/m)*sum(sum(log(h).*y' + log(1-h).*(1-y)'));
+  %J += (lambda/(2*m))*sum(sum(Theta1.^2)); %Regularization
+  %J += (lambda/(2*m))*sum(sum(Theta2.^2)); %Regularization
+  J += (lambda/(2*m))*sum(sum(Theta1(:, 2:end).^2)); %Regularization
+  J += (lambda/(2*m))*sum(sum(Theta2(:, 2:end).^2)); %Regularization
+  
   % Backpropogation 
   y_logical = eye(size(h,1))(y,:);
-  D3 = h' - y_logical; % Error of output layer
-  D2 = (D3*Theta2(:, 2:end)).*(sigmoidGradient(z2))'; % Error of hidden layer
+  D3 = h' - y_logical;
+  D2 = (D3*Theta2(:, 2:end)).*(sigmoidGradient(z2))';
   Delta1 = a1*D2;
   Delta2 = a2*D3;
   
-  Theta1 = [zeros(1, size(Theta1, 2)) ; Theta1(2:end, 1:end)];
-  Theta2 = [zeros(size(Theta2, 1), 1) Theta2(1:end, 2:end)];
-  
-  Theta1_gradient = (1/m)*Delta1 + (lambda*Theta1)';
-  Theta2_gradient = (1/m)*Delta2 + (lambda*Theta2)';
-  
+  Theta1 = [zeros(1, size(Theta1, 2)) ; Theta1(2:end, :)];
+  Theta2 = [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+  Theta1_gradient = Delta1/m + ((lambda/m)*Theta1)';
+  Theta2_gradient = Delta2/m + ((lambda/m)*Theta2)';  
   gradient = [Theta1_gradient(:); Theta2_gradient(:)];
 end
