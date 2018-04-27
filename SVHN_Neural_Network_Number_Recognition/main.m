@@ -34,7 +34,6 @@ Theta2 = zeros(output_layer_size, hidden_layer_size + 1); #Add bias unit
 rolled_weights = [Theta1(:); Theta2(:)];
 init_weights = [init_Theta1(:); init_Theta2(:)];
 options = optimset('MaxIter', 100);
-
 debugBackprop(lambda);
 
 costFunc = @(t) costFunction(X_unrolled, t, y, lambda, hidden_layer_size, input_layer_size, output_layer_size);

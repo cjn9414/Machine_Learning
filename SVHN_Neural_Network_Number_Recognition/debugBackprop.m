@@ -23,7 +23,7 @@ function debugBackprop(lambda)
   [backprop_cost backprop_grad] = costFunc(theta_unrolled);
   grad_approx = gradientCheck(costFunc, theta_unrolled);
   fprintf("If backpropogation is working correctly, the following values should be very similar\n")
-  disp([grad_approx(1:15) backprop_grad(1:15)]);
+  disp([grad_approx backprop_grad]);
   diff = norm(grad_approx-backprop_grad)/norm(grad_approx+backprop_grad)
   
   end
