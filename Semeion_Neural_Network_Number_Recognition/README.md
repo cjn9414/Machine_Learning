@@ -14,3 +14,7 @@ The proper citations for the Semeion Handwritten Digit Data Set are located belo
 
 Semeion Research Center of Sciences of Communication, via Sersale 117, 00128 Rome, Italy 
 Tattile Via Gaetano Donizetti, 1-3-5,25030 Mairano (Brescia), Italy.
+
+I am also using a function minimizer, fmincg, which will find the minimum value of a function with respect to one variable. This function is not mine. If you wish to use my program, please download fmincg from the git repository located below. This file should be located in the same folder that this repository is being downloaded to.
+
+https://github.com/everpeace/ml-class-assignments/blob/master/ex3.Multi-class_classification_and_Neural_Networks/mlclass-ex3/fmincg.m

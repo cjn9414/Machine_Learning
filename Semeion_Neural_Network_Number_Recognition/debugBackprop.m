@@ -10,17 +10,23 @@ function debugBackprop(lambda)
   output_layer_size = 5;
   m = 10; % Number of training examples
   
+  % Initialize values
   Theta1 = zeros(hidden_layer_size, input_layer_size + 1);
   Theta2 = zeros(output_layer_size, hidden_layer_size + 1);
   X = zeros(input_layer_size, m)';
   y = eye(output_layer_size)(1 + mod(1:m, output_layer_size), :);
   
+  % Randomize weights for neural network
   [Theta1 X] = initializeWeights(Theta1, X);
-  [Theta1 Theta2] = initializeWeights(Theta1, Theta2);
+  [~ Theta2] = initializeWeights(Theta1, Theta2);
+  
+  % Unroll weights
   theta_unrolled = [Theta1(:); Theta2(:)];
   
   costFunc = @(t) costFunction(X, t, y, lambda, hidden_layer_size, input_layer_size, output_layer_size);
   [backprop_cost backprop_grad] = costFunc(theta_unrolled);
+  
+  % Calculate an approximated gradient using derivative definition
   grad_approx = gradientCheck(costFunc, theta_unrolled);
   fprintf("If backpropogation is working correctly, the following values should be very similar\n")
   disp([grad_approx(1:20) backprop_grad(1:20)]);

@@ -1,21 +1,25 @@
 function [J gradient] = costFunction(X, rolled_weights, y, lambda, hidden_layer_size, input_layer_size, output_layer_size)
-  %Three layers, two theta values
+  
   m = size(y, 1); % Number of training examples
+  
+  % Reform the theta matrices
   Theta1 = reshape(rolled_weights(1:(hidden_layer_size*(input_layer_size+1))), hidden_layer_size, input_layer_size + 1);
   Theta2 = reshape(rolled_weights(1+(hidden_layer_size*(input_layer_size+1)):end), output_layer_size, hidden_layer_size + 1);
+  
   % Calculating hypothesis
-  a1 = [ones(size(X,1), 1) X]; % Creating m-rows, and n-cols, where n is the number of parameters.  
+  a1 = [ones(size(X,1), 1) X];
   z2 = Theta1*a1';
   a2 = sigmoid(z2);
   a2 = [ones(1, size(a2, 2)) ; a2];
   z3 = Theta2*a2;
   a3 = sigmoid(z3);
   h = a3;
-  % Calculating cost
-  #y_logical = eye(output_layer_size)(y,:);  
+  
+  % Calculating cost  
   J = -(1/m)*sum(sum(log(h)'.*y + log(1-h)'.*(1-y)));
-  J += (lambda/(2*m))*sum(sum(Theta1(:, 2:end).^2)); %Regularization
-  J += (lambda/(2*m))*sum(sum(Theta2(:, 2:end).^2)); %Regularization
+  J += (lambda/(2*m))*sum(sum(Theta1(:, 2:end).^2)); % Regularization
+  J += (lambda/(2*m))*sum(sum(Theta2(:, 2:end).^2)); % Regularization
+  
   % Backpropogation 
   D3 = h' - y;
   D2 = (D3*Theta2(:, 2:end))'.*sigmoidGradient(z2);
