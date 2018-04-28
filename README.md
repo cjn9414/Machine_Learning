@@ -1,1 +1,1 @@
-This is repository to contain to machine learning programs that I create as I learn more and more about machine learning. More to come soon!
+This is a repository to contain the machine learning programs that I create as I learn more and more about machine learning. I am very interested in Neural Networks, and as a result I may end up creating many of these. However, I also expect to use algorithms such as linear regression, logistic regression, and any other possible algorithms to implement into programs in order to solve complex problems.

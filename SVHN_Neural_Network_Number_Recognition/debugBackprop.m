@@ -12,8 +12,8 @@ function debugBackprop(lambda)
   
   Theta1 = zeros(hidden_layer_size, input_layer_size + 1);
   Theta2 = zeros(output_layer_size, hidden_layer_size + 1);
-  X = zeros(input_layer_size + 1, m);
-  y = (1 + mod(1:m, output_layer_size))'; 
+  X = zeros(input_layer_size, m)';
+  y = eye(output_layer_size)(1 + mod(1:m, output_layer_size), :);
   
   [Theta1 X] = initializeWeights(Theta1, X);
   [Theta1 Theta2] = initializeWeights(Theta1, Theta2);
