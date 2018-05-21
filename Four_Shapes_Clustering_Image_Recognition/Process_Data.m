@@ -1,3 +1,5 @@
+function Process_Data()
+
 imgsize = [200 200];
 
 triangle_dir = './triangle';
@@ -57,3 +59,5 @@ data = uint8(data_shuffle);
 save('data.mat', 'data');
 
 clear all;
+
+end

@@ -15,7 +15,7 @@ J = zeros(numb_trials);
 
 for trial = 1:numb_trials
   centroids(:, :, trial) = initializeCentroids(K, train_data);
-  %[centroids, C] = Run_K_Means(train_data, centroids); # NOT FINISHED #
+  [centroids(:, :, trial), C] = Run_K_Means(train_data, centroids(:, :, trial));
   %J(trial) = computeCost(centroids, C); # NOT FINISHED #
 end
 
