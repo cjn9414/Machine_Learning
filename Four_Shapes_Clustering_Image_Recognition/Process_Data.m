@@ -55,7 +55,7 @@ for i = 1:n
   data_shuffle(i, :) = data(idx(i), :);
 end
 
-data = uint8(data_shuffle);
+data = data_shuffle;
 save('data.mat', 'data');
 
 clear all;

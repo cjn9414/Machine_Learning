@@ -4,9 +4,23 @@ K = 4;
 if ~exist('data.mat')
   Process_Data();
 end
+
+fprintf("Press any button to load data file.\n")
+pause
+
 load('data.mat');
 train_data = data(1:400, :);
+
+fprintf("Data loaded into Octave. Press any button to perform dimensionality reduction.\n")
+pause
+
+X_reduced = reduceDimensions(scaleFeatures(train_data));
+
+fprintf("Dimensionality reduction completed. Press any button to continue.\n")
+pause
+
 test_data = data(401:end, :);
+clear data;
 m = size(train_data, 1);
 n = size(train_data, 2);
 numb_trials = 100;
