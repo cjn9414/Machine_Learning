@@ -20,29 +20,32 @@ stars = dir([star_dir, '/*.png']);
 fprintf('Loading all squares...\n')
 squares = dir([square_dir, '/*.png']);
 
-shapes = [triangles(1:1000); circles(1:1000); stars(1:1000); squares(1:1000)];
+shapes = [triangles(1:100); circles(1:100); stars(1:100); squares(1:100)];
 
 clear triangles circles stars squares;
 
 fprintf("All shape data has been loaded into MATLAB. Press any button to reformat the data\n")
 pause
 
-const = 8; % Used to determine size of data file
-m = (size(shapes, 1))/const;
-data = zeros(m, imgsize(1)*imgsize(2));
+m = (size(shapes, 1));
+data = zeros(m, imgsize(1)*imgsize(2) + 1);
 
-for i = 1:const:size(shapes, 1)
+for i = 1:size(shapes, 1)
     fname = shapes(i).name;
-    if (i <= 3720)
+    if (i <= 100)
+      data(i, (imgsize(1)*imgsize(2))+1) = 1; 
       folder = 'triangle/';
-    elseif (i <= 3720*2)
+    elseif (i <= 200)
+      data(i, (imgsize(1)*imgsize(2))+1) = 2; 
       folder = 'circle/';
-    elseif (i <= (3720*2) + 3765)
+    elseif (i <= 300)
+      data(i, (imgsize(1)*imgsize(2))+1) = 3; 
       folder = 'star/';
     else 
+      data(i, (imgsize(1)*imgsize(2))+1) = 4; 
       folder = 'square/';
     end
-    data((const+i-1)/const, :) = (imread([folder fname])(:))';
+    data(i, 1:imgsize(1)*imgsize(2)) = (imread([folder fname])(:))';
 end
 
 fprintf("All data has been reformatted. Press any button to write the data into a file.\n")

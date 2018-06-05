@@ -9,7 +9,8 @@ fprintf("Press any button to load data file.\n")
 pause
 
 load('data.mat');
-train_data = data(1:400, :);
+n = size(data, 2) - 1;
+train_data = data(1:300, 1:n);
 
 fprintf("Data loaded into Octave. Press any button to perform dimensionality reduction.\n")
 pause
@@ -19,7 +20,10 @@ pause
 fprintf("Dimensionality reduction completed. Press any button to continue.\n")
 pause
 
-test_data = data(401:end, :);
+test_data = data(301:end, 1:n);
+labels = data(301:end, n+1);
+size(labels)
+pause
 clear data;
 m = size(train_data, 1);
 n = size(train_data, 2);
@@ -36,4 +40,6 @@ end
 [cost idx] = min(J);
 
 optimalCentroids = centroids(:, :, idx);
-%computeAccuracy(optimalCentroids, test_data); # need labeled data first #
+accuracy = computeAccuracy(optimalCentroids, test_data, labels);
+
+fprintf("The accuracy of this clustering algorithm is approximately %f\n", accuracy*100);
