@@ -14,7 +14,7 @@ train_data = data(1:400, :);
 fprintf("Data loaded into Octave. Press any button to perform dimensionality reduction.\n")
 pause
 
-X_reduced = reduceDimensions(scaleFeatures(train_data));
+%X_reduced = reduceDimensions(scaleFeatures(train_data));
 
 fprintf("Dimensionality reduction completed. Press any button to continue.\n")
 pause
@@ -30,7 +30,7 @@ J = zeros(numb_trials);
 for trial = 1:numb_trials
   centroids(:, :, trial) = initializeCentroids(K, train_data);
   [centroids(:, :, trial), C] = Run_K_Means(train_data, centroids(:, :, trial));
-  %J(trial) = computeCost(centroids, C); # NOT FINISHED #
+  J(trial) = computeCost(centroids(:, :, trial), C, X);
 end
 
 [cost idx] = min(J);
